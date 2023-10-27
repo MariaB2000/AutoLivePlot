@@ -5,6 +5,13 @@ AutoLivePlot is a python script to plot the data from csvs that are being writte
 
 All that is required from you is to supply the csvs that the data is being written to, and your data will be plotted in seperate graphs.
 
+## Setup ##
+
+Install the required python libraries using pip:
+```
+pip install -r requirements.txt
+```
+
 ## Running the application ##
 The program takes three command line arguments:
 ```
@@ -27,3 +34,7 @@ The application should be run from a terminal using the comand:
 ```
   python 3 AutoLivePlot.py -c <path-to-csv1> <path-to-csv2>...
 ```
+
+The a .png file of the plot is actively saved to a new folder /measurements in your working directory throughout the runtime.
+
+To stop the application, close the plotting window.
