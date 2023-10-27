@@ -56,22 +56,26 @@ def main(args):
         ani = FuncAnimation(fig, animate, interval=200, cache_frame_data=False)
 
         plt.show()
+        exit(0)
     except KeyboardInterrupt:
         plt.savefig(SaveDir + '/' + PlotName)
-        exit(0)
+        exit(1)
 
 def prepareDataframe(csvs:list):
     allDFS = pd.DataFrame()
     dateTimeCol = pd.DataFrame()
     for csv in csvs:
+        if not os.path.exists(csv):
+            questionary.print(f'[Warning] csv file {csv} not found', style='yellow')
         df = pd.read_csv(csv)
         dateTimeCol = df.select_dtypes(include=['object'])
         df = df.select_dtypes(exclude=['object'])
         allDFS = pd.concat([allDFS, df], axis=1)
+    allDFS.dropna(axis=1, inplace=True, how='all')
     allDFS.dropna(inplace=True)
     allDFS = allDFS.head(dateTimeCol.shape[0])
     dateTimeCol = dateTimeCol.head(allDFS.shape[0])
-    return dateTimeCol, allDFS.dropna()
+    return dateTimeCol, allDFS
 
 def plotSize(c:int):
     return math.ceil(math.sqrt(c))
